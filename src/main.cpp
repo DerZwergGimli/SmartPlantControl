@@ -386,20 +386,21 @@ void run_lightTimer()
 {
   if (growLight.mode == AUTO)
   {
-    if (timeClient.getHours() >= timer.getStartHour() && timeClient.getMinutes() >= timer.getStartMinute())
+    // Turn ON
+    if (timeClient.getHours() >= timer.getStartHour())
     {
-      if (timeClient.getHours() <= timer.getEndHour() && timeClient.getMinutes() >= timer.getEndMinute())
-      {
-        growLight.state = true;
-      }
-      else
-      {
-        growLight.state = false;
-      }
+      // if (timeClient.getMinutes() >= timer.getStartMinute())
+      //{
+      growLight.state = true;
+      //}
     }
-    else
+    // Turn OFF
+    if (timeClient.getHours() >= timer.getEndHour())
     {
+      // if (timeClient.getMinutes() >= timer.getEndMinute())
+      //{
       growLight.state = false;
+      //}
     }
   }
 }
@@ -419,6 +420,11 @@ void runCallback()
     growLight.duty_cycle = 0;
     growLightFan.state = true;
     growLightFan.duty_cycle = 100;
+  }
+  // Make sure FAN is on if light is on!
+  if (growLight.state)
+  {
+    growLightFan.state = true;
   }
 
   // Get Data
