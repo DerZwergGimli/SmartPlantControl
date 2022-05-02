@@ -1,0 +1,1 @@
+export function myFunction(){var e=document.getElementById("snackbar");e.className="show",setTimeout((function(){e.className=e.className.replace("show","")}),3e3)}
